@@ -1,0 +1,111 @@
+const express = require("express");
+const path = require("path");
+const session = require("express-session");
+require("dotenv").config();
+
+const { engine } = require("express-handlebars");
+
+const connectDB = require("./config/db");
+
+const userRoutes = require("./routes/userRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const authRoutes = require("./routes/authRoutes");
+
+const app = express();
+
+// connect Database;
+connectDB();
+
+/* body parser */
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+/* static files */
+app.use(express.static(path.join(__dirname, "public")));
+
+/* habdlebars setup */
+app.engine(
+  "hbs",
+  engine({
+    extname: ".hbs",
+    defaultLayout: "main",
+    layoutsDir: path.join(__dirname, "views/layouts"),
+    partialsDir: path.join(__dirname, "views/partials"),
+
+    helpers: {
+      add: (a, b) => a + b,
+      subtract: (a, b) => a - b,
+      eq: (a, b) => a === b, // 👈 ADD THIS
+
+      range: function (start, end) {
+        let arr = [];
+        for (let i = start; i <= end; i++) {
+          arr.push(i);
+        }
+        return arr;
+      },
+    },
+  }),
+);
+
+app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "views"));
+
+/* session config */
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: false, // true in production(HTTPS)
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  }),
+);
+
+/* global variables */
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+
+  const cart = req.session.cart || [];
+  res.locals.cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  res.locals.cartPreview = cart; // NEW
+
+  next();
+});
+
+
+/* routes */
+app.use("/",userRoutes);
+app.use("/admin",adminRoutes);
+app.use("/", authRoutes);
+
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+  console.log(`server running ${PORT}`);
+});
+
+
+
+
+
+
+// app.get("/add-product", async (req,res)=>{
+//   try {
+//     const newProduct = new product({
+//       name:"PVC Designer Glass Bathroom Door",
+//       price: 7000,
+//       discount:20,
+//       description:"High quality 38mm thick PVC designer bathroom door.",
+//       image: "https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/_/p/_plnt835236a_5f2a223608f47.png"
+//     });
+//     await newProduct.save();
+//     res.send("product added successfully");
+//   } catch (error) {
+//     console.error(error);
+//     res.send("Error adding product");
+//   }
+// });

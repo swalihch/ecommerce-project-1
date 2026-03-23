@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg header">
+  <div class="container-lg logo">
+    <a href="/" class="navbar-brand">
+      <img src="/picture/icons/icon.png" alt="" />
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainMenu"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainMenu">
+      <ul class="navbar-nav ms-auto menu">
+        <li class="nav-item">
+          <a href="/" class="nav-link">🏠 HOME</a>
+        </li>
+        <li class="nav-item">
+          <a href="/orders" class="nav-link">
+            📦 Orders
+          </a>
+        </li>
+        <li class="nav-item position-relative">
+          <a href="/cart" class="nav-link">
+            🛒 Cart
+          </a>
+
+          <span id="cart-count" class="cart-badge" data-count="{{cartCount}}">
+            {{cartCount}}
+          </span>
+
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">👤 PROFILE</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

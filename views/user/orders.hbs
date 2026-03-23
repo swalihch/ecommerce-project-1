@@ -1,0 +1,52 @@
+<div class="container mt-5">
+
+<h2 class="mb-4">📦 My Orders</h2>
+
+{{#if orders.length}}
+
+<table class="table">
+
+<thead>
+<tr>
+<th>Order ID</th>
+<th>Items</th>
+<th>Total</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody>
+
+{{#each orders}}
+
+<tr>
+
+<td>{{this._id}}</td>
+
+<td>
+{{#each this.items}}
+{{this.product.name}} (x{{this.quantity}})<br>
+{{/each}}
+</td>
+
+<td>₹{{this.total}}</td>
+
+<td>{{this.createdAt}}</td>
+
+</tr>
+
+{{/each}}
+
+</tbody>
+
+</table>
+
+{{else}}
+
+<div class="alert alert-info">
+No orders yet
+</div>
+
+{{/if}}
+
+</div>

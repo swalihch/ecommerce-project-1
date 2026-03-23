@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg header">
+  <div class="container-lg logo">
+    <a href="" class="navbar-brand">
+      <img src="/picture/icons/icon.png" alt="" />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainMenu"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainMenu">
+      <ul class="navbar-nav ms-auto menu">
+        {{#if user}}
+
+          <li class="nav-item">
+            <a href="/dashboard" class="nav-link">
+              <i class="fa-solid fa-circle-user"></i>
+              {{user.name}}
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/logout" class="nav-link text-danger">
+              🚪 Logout
+            </a>
+          </li>
+
+        {{else}}
+
+          <li class="nav-item">
+            <a href="/login" class="nav-link">
+              <i class="fa-solid fa-circle-user"></i>
+              Login
+            </a>
+          </li>
+
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,158 @@
+<div class="container mt-5">
+  <div class="cart-wrapper p-4">
+
+    <h2 class="mb-4">🛒 Your Cart</h2>
+
+    {{#if hasItems}}
+
+      <table class="table align-middle">
+
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {{#each cartItems}}
+
+            <tr>
+
+              <td>
+
+                <div class="d-flex align-items-center gap-3">
+
+                  <img src="{{this.product.image}}" class="cart-img" />
+
+                  <div>
+
+                    <strong>{{this.product.name}}</strong>
+
+                    <p class="text-muted mb-0 small">
+                      {{this.product.category}}
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </td>
+
+              <td class="fw-bold text-danger">
+                ₹{{this.price}}
+              </td>
+
+              <td>
+
+                <div class="d-flex align-items-center gap-2">
+
+                  <!-- minus -->
+
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btn-sm decrease-btn"
+                    data-id="{{this.product._id}}"
+                  >
+                    -
+                  </button>
+
+                  <span class="fw-bold quantity-text">
+                    {{this.quantity}}
+                  </span>
+
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btn-sm increase-btn"
+                    data-id="{{this.product._id}}"
+                  >
+                    +
+                  </button>
+
+                </div>
+
+              </td>
+
+              <td class="fw-bold">
+                ₹{{this.subtotal}}
+              </td>
+
+              <td>
+
+                <form onsubmit="return false;">
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm remove-from-cart-btn"
+                    data-id="{{this.product._id}}"
+                  >
+                    Remove
+                  </button>
+                </form>
+
+              </td>
+
+            </tr>
+
+          {{/each}}
+
+        </tbody>
+
+      </table>
+
+      <h4 class="mt-4">
+        Total:
+        <strong>₹{{total}}</strong>
+      </h4>
+
+      {{! change }}
+      <button onclick="openCheckoutModal()" class="btn btn-success mt-3">
+        Proceed to Checkout
+      </button>
+
+    {{else}}
+
+      <div class="alert alert-info">
+        Your cart is empty
+      </div>
+
+    {{/if}}
+  </div>
+
+</div>
+
+{{! change }}
+
+<!-- Checkout Modal -->
+<div class="modal fade" id="checkoutModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Order</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        Are you sure you want to place this order?
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button id="confirmOrderBtn" class="btn btn-success">
+          Yes, Place Order
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

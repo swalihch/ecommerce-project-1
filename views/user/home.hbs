@@ -1,0 +1,226 @@
+<main>
+  <div class="container mb-4">
+
+    <div class="d-flex gap-2">
+
+      <a href="/" class="btn btn-outline-dark">All</a>
+
+      <a href="/?category=Door" class="btn btn-outline-primary">
+        Door
+      </a>
+
+      <a href="/?category=Sheet" class="btn btn-outline-primary">
+        Sheet
+      </a>
+
+      <a href="/?category=Accessory" class="btn btn-outline-primary">
+        Accessory
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="container mt-4">
+
+    <form action="/" method="GET" class="d-flex mb-4">
+
+      <input
+        type="text"
+        name="search"
+        value="{{search}}"
+        class="form-control me-2"
+        placeholder="Search products..."
+      />
+
+      <button class="btn btn-primary">
+        Search
+      </button>
+
+    </form>
+
+  </div>
+
+  <section class="products">
+    <div class="container">
+      <div class="row g-4">
+        <!-- first card -->
+
+        {{#each products}}
+          <div class="col-lg-3 col-md-6">
+
+            <div
+              class="card product-card h-100 shadow-sm"
+              data-price="{{price}}"
+              data-discount="{{discount}}"
+            >
+
+              <div class="position-relative">
+
+                <span class="badge discount-badge"></span>
+
+                <a href="/product/{{_id}}">
+                  <img
+                    class="card-img-top product-img"
+                    src="{{image}}"
+                    alt="{{name}}"
+                  />
+                </a>
+
+              </div>
+
+              <div class="card-body d-flex flex-column">
+
+                <a
+                  href="/product/{{_id}}"
+                  class="text-decoration-none text-dark"
+                >
+                  <h6 class="card-title product-title">
+                    {{name}}
+                  </h6>
+                </a>
+
+                <p class="saveText text-success small"></p>
+
+                <p class="card-text fw-bold text-danger mb-2">
+
+                  <span
+                    class="originalPrice text-muted text-decoration-line-through"
+                  ></span>
+                  <span class="finalPrice ms-2"></span>
+
+                </p>
+
+                <!-- Add to cart -->
+
+                <form
+                  action="/add-to-cart/{{_id}}"
+                  method="POST"
+                  class="mt-auto d-flex gap-2"
+                >
+
+                  <input
+                    type="hidden"
+                    name="redirect"
+                    value="{{@root.currentUrl}}"
+                  />
+
+                  <input
+                    type="number"
+                    name="quantity"
+                    min="1"
+                    value="1"
+                    class="form-control form-control-sm w-25"
+                  />
+
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm flex-grow-1 add-to-cart-btn"
+                    data-id="{{_id}}"
+                  >
+                    Add to Cart
+                  </button>
+
+                </form>
+
+              </div>
+
+            </div>
+
+          </div>
+        {{/each}}
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+
+{{! <div class="col-lg-3 col-md-6">
+            <div class="card" data-price="4000" data-discount="15">
+
+              <div class="badge discount-badge"></div>
+
+              <img class="card-img-top"
+                src="https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/_/p/_plnt835236a_5f2a223608f47.png"
+                alt="">
+              <div class="card-body">
+                <h5 class="card-title">80 cm X 210 cm 38 mm Thick Planet 115 PVC Designer Glass Bathroom Door</h5>
+                <p class="saveText text-success small"></p>
+                <p class="card-text fw-bold fs-5 text-danger">
+                  <span class="originalPrice text-muted text-decoration-line-through"></span>
+                  <span class="finalPrice ms-2 "></span>
+
+                </p>
+                <!-- the input field and button -->
+                <div class="d-flex gap-2 align-items-center">
+                  <input type="number" min="1" class="form-control w-25 border border-primary">
+                  <button class="btn btn-danger">
+                    Add
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="card"  data-price="2000" data-discount="12" >
+
+              <div class="badge discount-badge"></div>
+
+              <img class="card-img-top"
+                src="https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/_/p/_plnt835236a_5f2a223608f47.png"
+                alt="">
+              <div class="card-body">
+                <h5 class="card-title">80 cm X 210 cm 38 mm Thick Planet 115 PVC Designer Glass Bathroom Door</h5>
+                <p class="saveText text-success small"></p>
+                <p class="card-text fw-bold fs-5 text-danger">
+                  <span class="originalPrice text-muted text-decoration-line-through"></span>
+                  <span class="finalPrice text-danger fw-bold ms-2"></span>
+                </p>
+
+                <!-- the input field and button -->
+                <div class="d-flex gap-2 align-items-center">
+                  <input type="number" min="1" class="form-control w-25 border border-primary">
+                  <button class="btn btn-danger">
+                    Add
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="card" data-price="1000" data-discount="0">
+
+              <div class=" badge discount-badge"></div>
+
+              <img class="card-img-top"
+                src="https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/_/p/_plnt835236a_5f2a223608f47.png"
+                alt="">
+              <div class="card-body">
+                <h5 class="card-title">80 cm X 210 cm 38 mm Thick Planet 115 PVC Designer Glass Bathroom Door</h5>
+                <p class="saveText text-success small"></p>
+
+                <p class="card-text fw-bold fs-5 text-danger">
+                  <span class="originalPrice text-muted text-decoration-line-through"></span>
+                  <span class="finalPrice text-danger fw-bold ms-2"></span>
+                </p>
+
+
+                <!-- the input field and button -->
+                <div class="d-flex gap-2 align-items-center">
+                  <input type="number" min="1" class="form-control w-25 border border-primary">
+                  <button class="btn btn-danger">
+                    Add
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          
+      </div> }}

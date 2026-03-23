@@ -1,0 +1,102 @@
+body{
+  margin: 0;
+  height: 100vh;
+  font-family: 'Alumni Sans', sans-serif;
+}
+/* Header layout */
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px;
+}
+
+/* logo */
+.logo img{
+  width: 200px;
+}
+
+/* menu */
+.menu{
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+.menu li{
+  list-style: none;
+}
+.menu a{
+  font-family: 'Alumni Sans', sans-serif;
+  font-weight: 800;
+  font-size: 23px;
+  letter-spacing: .5px;
+  text-decoration: none;
+  color: red;
+}
+
+
+/* main-part */
+.home{
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.home-content h1{
+  font-size: 80px;
+  letter-spacing: 5px;
+  color: rgb(0, 8, 255);
+}
+.home-content p{
+  font-size: 23px;
+  margin: 20px 0;
+}
+.btn-home{
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-home a{
+  text-decoration: none;
+  color: white;
+}
+.btn-home:hover{
+  background-color: rgb(0, 8, 255);
+}
+
+
+
+
+
+
+
+
+@media (max-width: 991px) {
+
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: auto;
+    width: auto;
+    background: transparent;
+  }
+
+  .navbar-nav {
+    background: white;
+    width: 240px;
+    padding: 10px 0;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  .navbar-nav .nav-item {
+    padding: 5px 15px;
+  }
+
+}

@@ -1,0 +1,52 @@
+<div class="container mt-5 d-flex justify-content-center">
+
+  <div class="card p-4 shadow" style="max-width: 600px; width: 100%;">
+
+    <h2 class="mb-4 text-center">🧾 Checkout</h2>
+
+    <form action="/checkout" method="POST">
+
+      <!-- ADDRESS -->
+      <div class="mb-3">
+        <label class="form-label">Full Address</label>
+        <textarea name="address" class="form-control" required></textarea>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="mb-3">
+        <label class="form-label">Payment Method</label>
+        <select name="paymentMethod" class="form-control" required>
+          <option value="COD">Cash on Delivery</option>
+        </select>
+      </div>
+
+      <!-- SUMMARY -->
+      <h5 class="mt-4">Order Summary</h5>
+
+      <table class="table table-sm">
+        <tbody>
+          {{#each cartItems}}
+            <tr>
+              <td>{{this.product.name}}</td>
+              <td>x{{this.quantity}}</td>
+              <td>₹{{this.price}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+      <h5 class="mt-3 text-end">
+        Total:
+        <strong>₹{{total}}</strong>
+      </h5>
+
+      {{! changed }}
+      <button type="submit" class="btn btn-success">
+        Place Order
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

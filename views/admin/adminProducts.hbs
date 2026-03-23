@@ -1,0 +1,49 @@
+<h2>Admin Product Management</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th>Stock</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    {{#each products}}
+
+      <tr>
+        <td>{{this.name}}</td>
+        <td>₹{{this.price}}</td>
+        <td>{{this.category}}</td>
+        <td>{{this.stock}}</td>
+
+        <td>
+          <a
+            href="/admin/products/edit/{{this._id}}"
+            class="btn btn-sm btn-warning"
+          >
+            Edit
+          </a>
+          <form
+            action="/admin/products/delete/{{this._id}}"
+            method="POST"
+            style="display:inline"
+          >
+            <button class="btn btn-sm btn-danger">
+              Delete
+            </button>
+          </form>
+        </td>
+      </tr>
+
+    {{/each}}
+
+  </tbody>
+</table>
+<a href="/admin/products/add" class="btn btn-primary mb-3">
+  Add Product
+</a>
