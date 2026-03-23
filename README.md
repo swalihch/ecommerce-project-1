@@ -19,7 +19,7 @@
 ## ⚙️ Setup
 
 ```bash
-git clone <your-repo-link>
+git clone https://github.com/swalihch/ecommerce-project-1.git
 cd ecommerce-project
 npm install
 ```
