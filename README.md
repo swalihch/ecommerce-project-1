@@ -28,8 +28,6 @@ Create a `.env` file:
 
 ```
 MONGO_URI=your_mongo_uri
-RAZORPAY_KEY_ID=your_key
-RAZORPAY_KEY_SECRET=your_secret
 ```
 
 Run the app:
