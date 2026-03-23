@@ -14,7 +14,6 @@
 * Express.js
 * MongoDB
 * Handlebars (HBS)
-* Razorpay
 
 ## ⚙️ Setup
 
