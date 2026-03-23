@@ -1,4 +1,6 @@
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config({
+  path: require("path").resolve(__dirname, "../.env"),
+});
 const mongoose = require("mongoose");
 
 const connectDB = require("../config/db");
@@ -14,7 +16,8 @@ const products = [
     discount: 20,
     stock: 20,
     description: "High quality PVC bathroom door",
-    image: "https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/_/p/_plnt835236a_5f2a223608f47.png"
+    image:
+      "https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/_/p/_plnt835236a_5f2a223608f47.png",
   },
   {
     name: "Steel Sheet Heavy Duty",
@@ -23,7 +26,7 @@ const products = [
     discount: 10,
     stock: 20,
     description: "Industrial grade steel sheet",
-    image: "https://via.placeholder.com/300"
+    image: "https://via.placeholder.com/300",
   },
   {
     name: "Door Handle Set",
@@ -32,8 +35,8 @@ const products = [
     discount: 5,
     stock: 20,
     description: "Premium stainless door handle",
-    image: "https://via.placeholder.com/300"
-  }
+    image: "https://via.placeholder.com/300",
+  },
 ];
 
 const seedProducts = async () => {
