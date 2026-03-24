@@ -183,27 +183,38 @@ const getSingleProduct = async (req, res, next) => {
   }
 };
 
-const removeFromCart = (req, res) => {
+const removeFromCart = async (req, res) => {
   try {
     const productId = req.params.id;
 
-    if (!req.session.cart) {
-      return res.json({ cartCount: 0 }); // always JSON
-    }
-
-    req.session.cart = req.session.cart.filter(
+    req.session.cart = (req.session.cart || []).filter(
       (item) => item.productId !== productId,
     );
+
+    let total = 0;
+
+    for (let item of req.session.cart) {
+      const product = await Product.findById(item.productId);
+
+      let finalPrice = product.price;
+
+      if (product.discount > 0) {
+        finalPrice = product.price - (product.price * product.discount) / 100;
+      }
+
+      total += finalPrice * item.quantity;
+    }
 
     const cartCount = req.session.cart.reduce(
       (sum, item) => sum + item.quantity,
       0,
     );
 
-    // ✅ ALWAYS return JSON (no redirect)
-    return res.json({ cartCount });
+    return res.json({
+      cartCount,
+      total,
+    });
   } catch (error) {
-    console.error(error);
     return res.json({ error: "Error removing item" });
   }
 };

@@ -111,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // remove row from UI
+        // remove row from UI
         const row = this.closest("tr");
         if (row) row.remove();
 
@@ -118,6 +119,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const badge = document.getElementById("cart-count");
         if (badge) {
           badge.innerText = data.cartCount;
+        }
+
+        // ✅ UPDATE TOTAL
+        if (data.total !== undefined) {
+          const totalElement = document.getElementById("cart-total");
+          if (totalElement) {
+            totalElement.innerText = data.total;
+          }
         }
 
         showToast("Item removed", "success");
