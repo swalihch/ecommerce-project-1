@@ -33,8 +33,28 @@
           </span>
 
         </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">👤 PROFILE</a>
+        <li class="nav-item dropdown">
+          {{#if user}}
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              data-bs-toggle="dropdown"
+            >
+              👤
+              {{user.name}}
+            </a>
+
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="/profile">My Profile</a>
+              </li>
+              <li>
+                <a class="dropdown-item text-danger" href="/logout">Logout</a>
+              </li>
+            </ul>
+          {{else}}
+            <a href="/login" class="nav-link">Login</a>
+          {{/if}}
         </li>
       </ul>
     </div>

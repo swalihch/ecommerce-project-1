@@ -34,11 +34,13 @@ const register = async (req, res) => {
       password,
     });
 
-    req.session.user = {
-      id: newUser._id,
-      role: newUser.role,
-      name: newUser.name,
-    };
+    // req.session.user = {
+    //   id: newUser._id,
+    //   role: newUser.role,
+    //   name: newUser.name,
+    //   email: newUser.email,
+    // };
+    req.session.userId = newUser._id;
 
     return res.redirect("/");
   } catch (error) {
@@ -91,11 +93,13 @@ const login = async (req, res) => {
       });
     }
 
-    req.session.user = {
-      id: existingUser._id,
-      role: existingUser.role,
-      name: existingUser.name,
-    };
+    // req.session.user = {
+    //   id: existingUser._id,
+    //   role: existingUser.role,
+    //   name: existingUser.name,
+    //   email: existingUser.email,
+    // };
+    req.session.userId = existingUser._id;
 
     if (existingUser.role === "admin") {
       return res.redirect("/admin/dashboard");

@@ -7,9 +7,11 @@ const { engine } = require("express-handlebars");
 
 const connectDB = require("./config/db");
 
+const errorHandler = require("./middleware/errorMiddleware");
 const userRoutes = require("./routes/userRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const authRoutes = require("./routes/authRoutes");
+const User = require("./models/userModel");
 
 const app = express();
 
@@ -66,46 +68,41 @@ app.use(
 );
 
 /* global variables */
+app.use(async (req, res, next) => {
+  try {
+    if (req.session.userId) {
+      const user = await User.findById(req.session.userId).lean();
+      res.locals.user = user;
+    } else {
+      res.locals.user = null;
+    }
+
+    const cart = req.session.cart || [];
+    res.locals.cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    res.locals.cartPreview = cart;
+
+    next();
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 app.use((req, res, next) => {
-  res.locals.user = req.session.user || null;
-
-  const cart = req.session.cart || [];
-  res.locals.cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-  res.locals.cartPreview = cart; // NEW
-
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  res.set("Pragma", "no-cache");
+  res.set("Expires", "0");
   next();
 });
 
-
 /* routes */
-app.use("/",userRoutes);
-app.use("/admin",adminRoutes);
+app.use("/", userRoutes);
+app.use("/admin", adminRoutes);
 app.use("/", authRoutes);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
   console.log(`server running ${PORT}`);
 });
-
-
-
-
-
-
-// app.get("/add-product", async (req,res)=>{
-//   try {
-//     const newProduct = new product({
-//       name:"PVC Designer Glass Bathroom Door",
-//       price: 7000,
-//       discount:20,
-//       description:"High quality 38mm thick PVC designer bathroom door.",
-//       image: "https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/_/p/_plnt835236a_5f2a223608f47.png"
-//     });
-//     await newProduct.save();
-//     res.send("product added successfully");
-//   } catch (error) {
-//     console.error(error);
-//     res.send("Error adding product");
-//   }
-// });

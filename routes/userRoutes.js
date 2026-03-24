@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { protect } = require("../middleware/authMiddleware");
+const {getProfile} =require("../controllers/userController");
 
 const {
   getHomepage,
@@ -28,6 +29,8 @@ router.post("/update-cart/:id", updateCartQuantity);
 router.post("/checkout", protect, checkout);
 router.get("/orders", protect, getOrders);
 router.get("/checkout", protect, showCheckoutPage);
+
+router.get("/profile", protect,getProfile);
 
 router.get("/order-success", (req,res)=>{
   res.render("user/orderSuccess");

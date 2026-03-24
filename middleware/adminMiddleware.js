@@ -1,17 +1,21 @@
-const isAdmin = (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect("/login");
+const User = require("../models/userModel");
+
+const isAdmin = async (req, res, next) => {
+  try {
+    if (!req.session.userId) {
+      return res.redirect("/login");
+    }
+
+    const user = await User.findById(req.session.userId);
+
+    if (!user || user.role !== "admin") {
+      return res.redirect("/");
+    }
+
+    next();
+  } catch (error) {
+    next(error);
   }
-  if (req.session.user.role !== "admin") {
-    return res.redirect("/");
-  }
-  next();
 };
 
 module.exports = isAdmin;
-
-
-
-// if(req.session.user.role !=="admin"){
-//   return res.send("Access denied. Admins only");
-// }

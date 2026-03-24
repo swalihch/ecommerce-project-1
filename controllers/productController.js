@@ -2,7 +2,7 @@ const Product = require("../models/productModel");
 const Order = require("../models/orderModel");
 
 // show all products;
-const getHomepage = async (req, res) => {
+const getHomepage = async (req, res, next) => {
   try {
     const search = req.query.search || "";
     const category = req.query.category || "";
@@ -39,7 +39,7 @@ const getHomepage = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.send("Error loading products");
+    next(error);
   }
 };
 
@@ -157,7 +157,7 @@ const getCart = async (req, res) => {
   }
 };
 
-const getSingleProduct = async (req, res) => {
+const getSingleProduct = async (req, res, next) => {
   try {
     const singleProduct = await Product.findById(req.params.id).lean();
 
@@ -179,7 +179,7 @@ const getSingleProduct = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.send("Error loading product");
+    next(error);
   }
 };
 
@@ -309,7 +309,7 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-const showEditProduct = async (req, res) => {
+const showEditProduct = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id).lean();
 
@@ -318,7 +318,7 @@ const showEditProduct = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.send("Error loading product");
+    next(error);
   }
 };
 
@@ -414,7 +414,7 @@ const checkout = async (req, res) => {
 
     // ✅ CREATE ORDER WITH NEW FIELDS
     await Order.create({
-      user: req.session.user.id,
+      user: req.session.userId,
       items,
       total,
       address,
@@ -439,7 +439,7 @@ const checkout = async (req, res) => {
 
 const getOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ user: req.session.user.id })
+    const orders = await Order.find({ user: req.session.userId })
       .populate("items.product")
       .sort({ createdAt: -1 })
       .lean();
