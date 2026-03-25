@@ -37,7 +37,13 @@ app.engine(
     helpers: {
       add: (a, b) => a + b,
       subtract: (a, b) => a - b,
-      eq: (a, b) => a === b, // 👈 ADD THIS
+      eq: (a, b) => a === b,
+      gt: (a, b) => a > b,
+      lt: (a, b) => a < b,
+
+      ifEquals: (a, b, trueClass, falseClass) => {
+        return a === b ? trueClass : falseClass;
+      },
 
       range: function (start, end) {
         let arr = [];

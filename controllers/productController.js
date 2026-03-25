@@ -5,19 +5,23 @@ const Order = require("../models/orderModel");
 const getHomepage = async (req, res, next) => {
   try {
     const search = req.query.search || "";
-    const category = req.query.category || "";
+    const category = req.query.category || "all";
     const page = parseInt(req.query.page) || 1;
     const limit = 8;
 
-    let filter = {
-      $or: [
+    let filter = {};
+
+    // 🔍 Search filter
+    if (search) {
+      filter.$or = [
         { name: { $regex: search, $options: "i" } },
         { category: { $regex: search, $options: "i" } },
-      ],
-    };
+      ];
+    }
 
-    if (category) {
-      filter.category = category;
+    // 📂 Category filter
+    if (category && category !== "all") {
+      filter.category = { $regex: `^${category}$`, $options: "i" };
     }
 
     const totalProducts = await Product.countDocuments(filter);

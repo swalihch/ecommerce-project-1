@@ -3,18 +3,36 @@
 
     <div class="d-flex gap-2">
 
-      <a href="/" class="btn btn-outline-dark">All</a>
-
-      <a href="/?category=Door" class="btn btn-outline-primary">
-        Door
+      <a
+        href="/?category=all"
+        class="btn
+          {{ifEquals category 'all' 'btn-primary' 'btn-outline-primary'}}"
+      >
+        All
       </a>
 
-      <a href="/?category=Sheet" class="btn btn-outline-primary">
-        Sheet
+      <a
+        href="/?category=door"
+        class="btn
+          {{ifEquals category 'door' 'btn-primary' 'btn-outline-primary'}}"
+      >
+        Doors
       </a>
 
-      <a href="/?category=Accessory" class="btn btn-outline-primary">
-        Accessory
+      <a
+        href="/?category=sheet"
+        class="btn
+          {{ifEquals category 'sheet' 'btn-primary' 'btn-outline-primary'}}"
+      >
+        Sheets
+      </a>
+
+      <a
+        href="/?category=accessory"
+        class="btn
+          {{ifEquals category 'accessory' 'btn-primary' 'btn-outline-primary'}}"
+      >
+        Accessories
       </a>
 
     </div>
@@ -134,93 +152,51 @@
     </div>
   </section>
 
+  <div class="d-flex justify-content-center mt-4 w-100">
+
+    <!-- 🔹 PREV BUTTON (ADD HERE - TOP) -->
+    {{#if (gt @root.currentPage 1)}}
+      <a
+        href="/?category={{@root.category}}&search={{@root.search}}&page={{subtract
+          @root.currentPage
+          1
+        }}"
+        class="btn btn-outline-secondary mx-1"
+      >
+        Prev
+      </a>
+    {{/if}}
+
+    <!-- 🔹 PAGE NUMBERS (YOUR EXISTING CODE) -->
+    {{#each (range 1 totalPages)}}
+      <a
+        href="/?category={{@root.category}}&search={{@root.search}}&page={{this}}"
+        class="btn
+          {{ifEquals
+            @root.currentPage
+            this
+            'btn-primary'
+            'btn-outline-primary'
+          }}
+          mx-1"
+      >
+        {{this}}
+      </a>
+    {{/each}}
+
+    <!-- 🔹 NEXT BUTTON (ADD HERE - BOTTOM) -->
+    {{#if (lt @root.currentPage @root.totalPages)}}
+      <a
+        href="/?category={{@root.category}}&search={{@root.search}}&page={{add
+          @root.currentPage
+          1
+        }}"
+        class="btn btn-outline-secondary mx-1"
+      >
+        Next
+      </a>
+    {{/if}}
+
+  </div>
+
 </main>
-
-
-
-{{! <div class="col-lg-3 col-md-6">
-            <div class="card" data-price="4000" data-discount="15">
-
-              <div class="badge discount-badge"></div>
-
-              <img class="card-img-top"
-                src="https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/_/p/_plnt835236a_5f2a223608f47.png"
-                alt="">
-              <div class="card-body">
-                <h5 class="card-title">80 cm X 210 cm 38 mm Thick Planet 115 PVC Designer Glass Bathroom Door</h5>
-                <p class="saveText text-success small"></p>
-                <p class="card-text fw-bold fs-5 text-danger">
-                  <span class="originalPrice text-muted text-decoration-line-through"></span>
-                  <span class="finalPrice ms-2 "></span>
-
-                </p>
-                <!-- the input field and button -->
-                <div class="d-flex gap-2 align-items-center">
-                  <input type="number" min="1" class="form-control w-25 border border-primary">
-                  <button class="btn btn-danger">
-                    Add
-                  </button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="card"  data-price="2000" data-discount="12" >
-
-              <div class="badge discount-badge"></div>
-
-              <img class="card-img-top"
-                src="https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/_/p/_plnt835236a_5f2a223608f47.png"
-                alt="">
-              <div class="card-body">
-                <h5 class="card-title">80 cm X 210 cm 38 mm Thick Planet 115 PVC Designer Glass Bathroom Door</h5>
-                <p class="saveText text-success small"></p>
-                <p class="card-text fw-bold fs-5 text-danger">
-                  <span class="originalPrice text-muted text-decoration-line-through"></span>
-                  <span class="finalPrice text-danger fw-bold ms-2"></span>
-                </p>
-
-                <!-- the input field and button -->
-                <div class="d-flex gap-2 align-items-center">
-                  <input type="number" min="1" class="form-control w-25 border border-primary">
-                  <button class="btn btn-danger">
-                    Add
-                  </button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="card" data-price="1000" data-discount="0">
-
-              <div class=" badge discount-badge"></div>
-
-              <img class="card-img-top"
-                src="https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/_/p/_plnt835236a_5f2a223608f47.png"
-                alt="">
-              <div class="card-body">
-                <h5 class="card-title">80 cm X 210 cm 38 mm Thick Planet 115 PVC Designer Glass Bathroom Door</h5>
-                <p class="saveText text-success small"></p>
-
-                <p class="card-text fw-bold fs-5 text-danger">
-                  <span class="originalPrice text-muted text-decoration-line-through"></span>
-                  <span class="finalPrice text-danger fw-bold ms-2"></span>
-                </p>
-
-
-                <!-- the input field and button -->
-                <div class="d-flex gap-2 align-items-center">
-                  <input type="number" min="1" class="form-control w-25 border border-primary">
-                  <button class="btn btn-danger">
-                    Add
-                  </button>
-                </div>
-
-              </div>
-            </div>
-          
-      </div> }}
