@@ -14,7 +14,7 @@ const {
   checkout,
   getOrders,
   showCheckoutPage
-} = require("../controllers/productController");
+} = require("../controllers/userController");
 
 router.get("/", getHomepage);
 

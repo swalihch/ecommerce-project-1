@@ -11,7 +11,7 @@ const {
   deleteProduct,
   showEditProduct,
   updateProduct,
-} = require("../controllers/productController");
+} = require("../controllers/adminController");
 
 router.get("/products", isAdmin, getAdminProducts);
 
