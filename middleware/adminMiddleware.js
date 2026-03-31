@@ -5,8 +5,9 @@ const isAdmin = async (req, res, next) => {
     if (!req.session.userId) {
       return res.redirect("/login");
     }
-
+    
     const user = await User.findById(req.session.userId);
+    
 
     if (!user || user.role !== "admin") {
       return res.redirect("/");

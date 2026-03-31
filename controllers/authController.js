@@ -100,7 +100,7 @@ const login = async (req, res) => {
     //   email: existingUser.email,
     // };
     req.session.userId = existingUser._id;
-
+    
     if (existingUser.role === "admin") {
       return res.redirect("/admin/dashboard");
     }
